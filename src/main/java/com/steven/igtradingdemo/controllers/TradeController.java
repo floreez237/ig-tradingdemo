@@ -3,9 +3,7 @@ package com.steven.igtradingdemo.controllers;
 import com.steven.igtradingdemo.dto.PlaceTradeRequest;
 import com.steven.igtradingdemo.services.TradeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -16,7 +14,7 @@ public class TradeController {
     private final TradeService tradeService;
 
     @PostMapping("/place")
-    public void placeMarketOrder(@Valid PlaceTradeRequest placeTradeRequest) throws Exception {
+    public void placeMarketOrder(@Valid @RequestBody PlaceTradeRequest placeTradeRequest) throws Exception {
         tradeService.placeOrder(placeTradeRequest);
     }
 }
