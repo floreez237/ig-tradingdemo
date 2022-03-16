@@ -1,33 +1,11 @@
 # Running the project
-(Add command to install rest api jar as light bender is iinstalled in demo project)
 
+This project uses IG Rest API client to for one feature: To synchronously place a market order and
+get the account summary and order details.
 
-This project depends on the IG REST Client jar. So to be able to run the project, client jar must be locally installed 
-into your maven repository. To do that, run the following command:
-
-<b>Linux</b>
-```
-mvn install:install-file \
-   -Dfile=<path-to-client-jar> \
-   -DgroupId=com.iggroup.webapi \
-   -DartifactId=ig-webapi-java-client \
-   -Dversion=2.2.0-SNAPSHOT \
-   -Dpackaging=jar \
-   -DgeneratePom=true
-```
-
-<b>Windows</b>
-```
-mvn install:install-file ^
-   -Dfile=<path-to-client-jar> ^
-   -DgroupId=com.iggroup.webapi ^
-   -DartifactId=ig-webapi-java-client ^
-   -Dversion=2.2.0-SNAPSHOT ^
-   -Dpackaging=jar ^
-   -DgeneratePom=true
-```
-
-Then run `mvn clean` to import all dependencies into your project.
+##Installing dependencies
+Two depedencies are not available at the level of Maven Central but as jars in the 
+[lib folder](lib). To install them first run the `mvnw clean` command.
 
 ##Important Properties
 The IG client needs 4 important properties for it to work properly:
@@ -38,5 +16,7 @@ The IG client needs 4 important properties for it to work properly:
 
 All these properties should be set in the [properties file](src/main/resources/application.properties)
 
-##Creating the JAR
-Finally, you can now run `mvn install` to get the project's jar.
+##Starting the application
+To start the application, run the command: `mvnw spring-boot:run`.
+
+This automatically starts running the process that randomly places order.
