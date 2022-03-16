@@ -2,7 +2,6 @@ package com.steven.igtradingdemo.controllers;
 
 import com.steven.igtradingdemo.dto.PlaceTradeRequest;
 import com.steven.igtradingdemo.services.TradeService;
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -16,10 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.File;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/trade")
 public class TradeController {
     private final TradeService tradeService;
+
+    public TradeController(TradeService tradeService) {
+        this.tradeService = tradeService;
+    }
 
     @GetMapping(value = "/place")
     public ResponseEntity<Resource> placeMarketOrder(PlaceTradeRequest placeTradeRequest) throws Exception {

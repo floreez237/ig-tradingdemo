@@ -25,9 +25,8 @@ import com.steven.igtradingdemo.dto.AccountBalanceInfo;
 import com.steven.igtradingdemo.dto.PlaceTradeRequest;
 import com.steven.igtradingdemo.utils.CustomCache;
 import com.steven.igtradingdemo.utils.MapUtils;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -40,10 +39,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 @Service
-@RequiredArgsConstructor
-@Slf4j
 public class TradeService {
     private final static int MAX_NUMBER_OF_RETRIES = 5;
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(TradeService.class);
     private final RestAPI restApi;
     private final AuthenticationResponseAndConversationContext authenticationContext;
     private final ObjectMapper objectMapper;
@@ -51,6 +49,13 @@ public class TradeService {
     private final List<HandyTableListenerAdapter> listeners = new ArrayList<>();
     private AccountBalanceInfo accountBalanceInfo;
     private List<String> tradeableEpics;
+
+    public TradeService(RestAPI restApi, AuthenticationResponseAndConversationContext authenticationContext, ObjectMapper objectMapper, StreamingAPI streamingAPI) {
+        this.restApi = restApi;
+        this.authenticationContext = authenticationContext;
+        this.objectMapper = objectMapper;
+        this.streamingAPI = streamingAPI;
+    }
 
     @PostConstruct
     public void init() {

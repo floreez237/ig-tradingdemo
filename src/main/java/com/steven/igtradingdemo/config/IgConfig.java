@@ -5,10 +5,9 @@ import com.iggroup.webapi.samples.client.rest.AuthenticationResponseAndConversat
 import com.iggroup.webapi.samples.client.rest.dto.session.createSessionV2.CreateSessionV2Request;
 import com.steven.igtradingdemo.services.TradeService;
 import com.steven.igtradingdemo.utils.Constants;
-import com.sun.org.apache.xpath.internal.operations.Number;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -19,8 +18,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @ComponentScan(basePackages = "com.iggroup.webapi.samples.client")
-@Slf4j
 public class IgConfig {
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(IgConfig.class);
     @Value("${ig.username}")
     private String userName;
     @Value("${ig.password}")
