@@ -24,7 +24,7 @@ public class TradeController {
     @GetMapping(value = "/place")
     public ResponseEntity<Resource> placeMarketOrder(PlaceTradeRequest placeTradeRequest) throws Exception {
         placeTradeRequest.validateObject();
-        File file = tradeService.placeOrder(placeTradeRequest);
+        File file = tradeService.placeOrderAndReturnZip(placeTradeRequest);
         ByteArrayResource byteArrayResource = new ByteArrayResource(FileUtils.readFileToByteArray(file));
         HttpHeaders header = new HttpHeaders();
         header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=".concat(file.getName()));

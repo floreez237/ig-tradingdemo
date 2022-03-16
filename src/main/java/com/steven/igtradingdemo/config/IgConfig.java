@@ -3,10 +3,14 @@ package com.steven.igtradingdemo.config;
 import com.iggroup.webapi.samples.client.RestAPI;
 import com.iggroup.webapi.samples.client.rest.AuthenticationResponseAndConversationContext;
 import com.iggroup.webapi.samples.client.rest.dto.session.createSessionV2.CreateSessionV2Request;
+import com.steven.igtradingdemo.services.TradeService;
+import com.steven.igtradingdemo.utils.Constants;
+import com.sun.org.apache.xpath.internal.operations.Number;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -45,5 +49,19 @@ public class IgConfig {
         authRequest.setPassword(password);
         authRequest.setEncryptedPassword(encrypt);
         return restApi.createSession(authRequest, apiKey, encrypt);
+    }
+
+    @Bean
+    public CommandLineRunner addTradesEveryMinute(TradeService tradeService) {
+        return args -> {
+            int numberOfTrades = 0;
+            int maxNumberOfTrades = Constants.NUMBER_OF_RANDOM_TRADES;
+            while (numberOfTrades < maxNumberOfTrades) {
+                tradeService.randomlyPlaceAndOrder();
+                numberOfTrades++;
+                Thread.sleep(Constants.INTERVAL_BETWEEN_TRADES_IN_MILLISECONDS);
+            }
+            log.info("Randomly Opened trades");
+        };
     }
 }
